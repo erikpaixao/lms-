@@ -1,0 +1,63 @@
+@username = erik@erik.com
+@password = senhaSegura123
+
+### 1. Registro do usuário
+POST http://localhost:8080/api/auth/registro
+Content-Type: application/json
+
+{
+  "primeiroNome": "Erik",
+  "ultimoNome": "Silva",
+  "dataNascimento": "1990-01-01",
+  "email": "{{username}}",
+  "telefone": "123456789",
+  "senha": "{{password}}"
+}
+
+### 2. Login e captura do token
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "{{username}}",
+    "password": "{{password}}"
+}
+
+@authToken = {{ % body }}
+
+### 2. Login e captura do token
+GET http://localhost:8080/api/curso/all?page=0&count=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+### 3. Matricular em um curso
+POST http://localhost:8080/api/curso/matricula
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+{
+  "cursoId": 1,
+  "usuarioId": 1
+}
+
+### 4. buscar cursos matriculados por usuario
+GET http://localhost:8080/api/curso/matricula/estudante/1?page=0&count=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+### 5. Criar tarefas
+POST http://localhost:8080/api/curso/tarefa
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+{
+  "idCurso": 1,
+  "idUsuario": 1,
+  "descricao": "Estudar Java",
+  "idCategoria": 2
+}
+
+### 4. buscar tarefas matriculados por usuario
+GET http://localhost:8080/api/curso/tarefa/estudante/1?page=0&count=10
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
