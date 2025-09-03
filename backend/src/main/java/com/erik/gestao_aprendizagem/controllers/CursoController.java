@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erik.gestao_aprendizagem.dtos.CursoDTO;
+import com.erik.gestao_aprendizagem.dtos.IncrementarTarefaDTO;
 import com.erik.gestao_aprendizagem.dtos.MatriculaDTO;
 import com.erik.gestao_aprendizagem.dtos.RegistrarTarefaDTO;
 import com.erik.gestao_aprendizagem.dtos.TarefaDTO;
@@ -81,6 +82,17 @@ public class CursoController {
             @Parameter(description = "Número da página (iniciando em 0)") @RequestParam("page") int page,
             @Parameter(description = "Quantidade de registros por página") @RequestParam("count") int count) {
         return ResponseEntity.ok(service.buscarTarefasPorEstudante(page, count, usuarioId));
+    }
+
+    @Operation(summary = "Acrescentar tarefa por estudante")
+    @PostMapping("/tarefa/estudante")
+    @PreAuthorize("hasRole('ESTUDANTE')")
+    public ResponseEntity<Page<TarefaDTO>> buscarTarefaPorUsuario(
+            @Valid @RequestBody IncrementarTarefaDTO incrementarTarefaDTO) {
+        service.incrementarTarefasPorEstudanteECurso(incrementarTarefaDTO.getIdUsuario(),
+                incrementarTarefaDTO.getIdCategoria(), incrementarTarefaDTO.getIdCurso(),
+                incrementarTarefaDTO.getDataTarefa());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @Operation(summary = "Criar um novo curso")

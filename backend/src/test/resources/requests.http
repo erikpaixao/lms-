@@ -61,3 +61,15 @@ Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0I
 GET http://localhost:8080/api/curso/tarefa/estudante/1?page=0&count=10
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+### 5. Incrementar tempo gasto em uma tarefa
+POST http://localhost:8080/api/curso/tarefa/estudante
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJlcmlrQGVyaWsuY29tIiwiaWF0IjoxNzU2ODUwMTIzLCJleHAiOjE3NTc0NTQ5MjN9.idK2VLYEZPWi-mHS_bP7mkr45bL9ILEWQmACfYFGSNTOhnSR-gcxvlkyC5stNVz9
+
+{
+  "idUsuario": 1,
+  "idCategoria": 2,
+  "idCurso": 1,
+  "dataTarefa": "2025-09-02T18:57:21"
+}

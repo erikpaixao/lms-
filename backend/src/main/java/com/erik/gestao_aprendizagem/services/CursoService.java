@@ -1,5 +1,7 @@
 package com.erik.gestao_aprendizagem.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,12 @@ public class CursoService {
     }
 
     public Page<TarefaDTO> buscarTarefasPorEstudante(int page, int count, Long usuarioId) {
-        return tarefaService.buscarTodosPorIdUsuarioECurso(usuarioId, page, count);
+        return tarefaService.buscarTodosPorIdUsuario(usuarioId, page, count);
+    }
+
+    public void incrementarTarefasPorEstudanteECurso(Long idUsuario, Long idCategoria, Long idCurso,
+            LocalDateTime dataTarefa) {
+        tarefaService.incrementarTarefaPorIdUsuarioECurso(idUsuario, idCategoria, idCurso, dataTarefa);
     }
 
     public void matricular(Long cursoId, Long usuarioId) {
