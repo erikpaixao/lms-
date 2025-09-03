@@ -52,7 +52,7 @@ public class AuthController {
     public ResponseEntity<String> registerUser(@RequestBody RegistroUsuarioDTO registerDto) {
         try {
             userService.registrarNovo(registerDto);
-            return new ResponseEntity<>("Usuário registrado com sucesso!", HttpStatus.CREATED);
+            return new ResponseEntity<>("{\"status\": \"Created\"}", HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

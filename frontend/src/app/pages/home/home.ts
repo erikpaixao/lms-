@@ -55,7 +55,7 @@ export class Home implements OnInit {
   }
 
   openCreateDialog() {
-    this.router.navigate(['curso']);
+    this.router.navigate(['novo-curso']);
   }
 
   openEditDialog(event: Curso) {

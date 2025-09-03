@@ -34,5 +34,7 @@ export class TokenService {
 
   removeToken(): void {
     localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_ID);
+    localStorage.removeItem(this.PERMISSION_KEY);
   }
 }

@@ -20,6 +20,26 @@
                 O nome do curso é obrigatório.
               </mat-error>
             </mat-form-field>
+            <mat-form-field appearance="outline" class="flex-grow">
+              <mat-label>Data de Início</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="dataInicio"
+                required
+              />
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error
+                *ngIf="editCourseForm.get('dataInicio')?.hasError('required')"
+              >
+                A data de início é obrigatória.
+              </mat-error>
+            </mat-form-field>
             <button
               mat-mini-fab
               color="primary"

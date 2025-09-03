@@ -1,7 +1,7 @@
 <ng-toast [position]="TOAST_POSITIONS.TOP_RIGHT" [width]="350"></ng-toast>
 <app-loader *ngIf="loading | async"></app-loader>
 
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" *ngIf="showMenu()">
   <mat-sidenav #sidenav mode="side" class="sidenav-menu">
     <mat-nav-list>
       <a mat-list-item routerLink="" (click)="sidenav.close()">
@@ -26,9 +26,16 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>Gestão de Aprendizagem</span>
+      <span class="toolbar-spacer"></span>
+      <button mat-icon-button (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+      </button>
     </mat-toolbar>
     <div class="content">
       <router-outlet />
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<div *ngIf="!showMenu()">
+  <router-outlet />
+</div>

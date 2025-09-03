@@ -42,6 +42,7 @@ export class CursoComponent implements OnInit {
 
   editCourseForm = new FormGroup({
     nome: new FormControl('', [Validators.required]),
+    dataInicio: new FormControl<Date | null>(null, [Validators.required]),
   });
 
   novaTarefaForm = new FormGroup({
@@ -61,7 +62,12 @@ export class CursoComponent implements OnInit {
   buscarCurso() {
     this.cursoService.getById(this.courseId).subscribe((cursoCompleto) => {
       this.curso = cursoCompleto;
-      this.editCourseForm.setValue({ nome: cursoCompleto.nome });
+      this.editCourseForm.setValue({
+        nome: cursoCompleto.nome,
+        dataInicio: cursoCompleto.dataInicio
+          ? new Date(cursoCompleto.dataInicio)
+          : null,
+      });
     });
   }
 
@@ -88,14 +94,22 @@ export class CursoComponent implements OnInit {
 
   async onEditCourseSubmit() {
     if (this.editCourseForm.valid) {
-      // try {
-      //   const novoNome = this.editCourseForm.value.nome as string;
-      //   await this.cursoService.updateCourse(this.courseId, novoNome);
-      //   this.curso.update((c) => (c ? { ...c, nome: novoNome } : null));
-      //   this.toggleEditMode();
-      // } catch (error) {
-      //   console.error('Erro ao atualizar o curso:', error);
-      // }
+      const curso = {
+        id: this.curso.id,
+        nome: this.editCourseForm.value.nome!,
+        dataInicio: this.editCourseForm.value.dataInicio!,
+      };
+
+      this.cursoService.update(this.curso.id, curso).subscribe(
+        (updatedCurso) => {
+          this.curso = updatedCurso;
+          this.openToastSucess('Curso atualizado com sucesso!');
+          this.toggleEditMode();
+        },
+        (error) => {
+          this.openToastError('Erro ao atualizar o curso: ' + error.error.erro);
+        }
+      );
     }
   }
 

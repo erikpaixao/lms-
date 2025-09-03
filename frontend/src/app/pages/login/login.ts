@@ -102,11 +102,11 @@ export class Login {
       console.log('Dados de registro válidos:', this.registerForm.value);
       this.authService
         .register(this.registerForm.value)
-        .then((response) => {
-          this.toast.danger('Dados registrados com sucesso', 'Sucesso', 10000);
+        .then(() => {
+          this.toast.success('Dados registrados com sucesso', 'Sucesso', 10000);
           this.toggleForm(false);
         })
-        .catch((error) => {
+        .catch(() => {
           this.toast.danger('Dados de registro inválidos', 'Erro', 10000);
         });
     } else {
