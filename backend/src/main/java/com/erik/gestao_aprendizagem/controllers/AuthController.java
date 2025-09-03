@@ -1,5 +1,7 @@
 package com.erik.gestao_aprendizagem.controllers;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.erik.gestao_aprendizagem.config.security.JwtTokenProvider;
 import com.erik.gestao_aprendizagem.dtos.LoginDTO;
 import com.erik.gestao_aprendizagem.dtos.RegistroUsuarioDTO;
+import com.erik.gestao_aprendizagem.dtos.ResponseTokenDTO;
+import com.erik.gestao_aprendizagem.models.Usuario;
 import com.erik.gestao_aprendizagem.services.UsuarioService;
 
 @RestController
@@ -31,15 +35,17 @@ public class AuthController {
     private UsuarioService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDTO loginDto) {
+    public ResponseEntity<ResponseTokenDTO> authenticateUser(@RequestBody LoginDTO loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
+        Usuario user = userService.buscarPorEmail(loginDto.getUsername());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new ResponseTokenDTO(token, user.getId().toString(),
+                user.getPermissoes().stream().map(p -> p.getNome()).collect(Collectors.toSet())));
     }
 
     @PostMapping("/registro")

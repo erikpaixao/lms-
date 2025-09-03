@@ -67,33 +67,7 @@ public class CursoController {
         return ResponseEntity.ok(service.buscarTodosPorEstudante(page, count, usuarioId));
     }
 
-    @Operation(summary = "Adicionar tarefa por curso e estudante")
-    @PostMapping("/tarefa")
-    @PreAuthorize("hasRole('ESTUDANTE')")
-    public ResponseEntity<Page<CursoDTO>> criarTarefa(@Valid @RequestBody RegistrarTarefaDTO tarefaDTO) {
-        service.cadastrarTarefa(tarefaDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @Operation(summary = "Buscar tarefa por estudante")
-    @GetMapping("/tarefa/estudante/{usuarioId}")
-    @PreAuthorize("hasRole('ESTUDANTE')")
-    public ResponseEntity<Page<TarefaDTO>> buscarTarefaPorUsuario(@PathVariable Long usuarioId,
-            @Parameter(description = "Número da página (iniciando em 0)") @RequestParam("page") int page,
-            @Parameter(description = "Quantidade de registros por página") @RequestParam("count") int count) {
-        return ResponseEntity.ok(service.buscarTarefasPorEstudante(page, count, usuarioId));
-    }
-
-    @Operation(summary = "Acrescentar tarefa por estudante")
-    @PostMapping("/tarefa/estudante")
-    @PreAuthorize("hasRole('ESTUDANTE')")
-    public ResponseEntity<Page<TarefaDTO>> buscarTarefaPorUsuario(
-            @Valid @RequestBody IncrementarTarefaDTO incrementarTarefaDTO) {
-        service.incrementarTarefasPorEstudanteECurso(incrementarTarefaDTO.getIdUsuario(),
-                incrementarTarefaDTO.getIdCategoria(), incrementarTarefaDTO.getIdCurso(),
-                incrementarTarefaDTO.getDataTarefa());
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+   
 
     @Operation(summary = "Criar um novo curso")
     @PostMapping

@@ -12,7 +12,7 @@ import com.erik.gestao_aprendizagem.models.TarefaPk;
 
 public interface ITarefaRepository extends JpaRepository<Tarefa, TarefaPk> {
 
-    @Query("SELECT new com.erik.gestao_aprendizagem.dtos.TarefaDTO(e.descricao, e.categoria.nome, e.tempoGasto, e.curso.nome) FROM Tarefa e  WHERE e.id.idUsuario = :id")
-    public Page<TarefaDTO> buscarTodosPorIdUsuario(@Param("id") Long id, Pageable page);
+    @Query("SELECT new com.erik.gestao_aprendizagem.dtos.TarefaDTO(e.descricao, e.categoria.nome, e.tempoGasto, e.curso.nome, e.categoria.id, e.id.dataTarefa) FROM Tarefa e  WHERE e.id.idUsuario = :id AND e.id.idCurso = :idCurso ORDER BY e.id.dataTarefa DESC")
+    public Page<TarefaDTO> buscarTodosPorIdUsuario(@Param("id") Long id, @Param("idCurso") Long idCurso, Pageable page);
 
 }

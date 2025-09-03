@@ -3,6 +3,8 @@ package com.erik.gestao_aprendizagem.models;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.erik.gestao_aprendizagem.dtos.CursoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,11 @@ public class Curso implements Serializable {
 
     public LocalDate getDataFim() {
         return dataInicio.plusMonths(6);
+    }
+
+    public Curso(CursoDTO dto) {
+        this.nome = dto.getNome();
+        this.dataInicio = dto.getDataInicio();
     }
 
 }

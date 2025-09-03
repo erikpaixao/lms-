@@ -41,4 +41,9 @@ public class UsuarioService {
         return repository.save(new Usuario(registration, estudante, passwordEncoder.encode(registration.getSenha())));
     }
 
+    public Usuario buscarPorEmail(String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com o e-mail: " + email));
+    }
+
 }

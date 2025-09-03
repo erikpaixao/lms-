@@ -3,6 +3,8 @@ package com.erik.gestao_aprendizagem.models;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.erik.gestao_aprendizagem.dtos.TarefaDTO;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,5 +41,13 @@ public class Tarefa implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idCurso", referencedColumnName = "id", insertable = false, updatable = false)
     private Curso curso;
+
+    public Tarefa(TarefaDTO dto) {
+        this.id = new TarefaPk();
+        this.id.setIdCategoria(dto.getIdCategoria());
+        this.id.setDataTarefa(dto.getDataTarefa());
+        this.descricao = dto.getDescricao();
+        this.tempoGasto = dto.getTempoGasto();
+    }
 
 }

@@ -40,8 +40,8 @@ public class TarefaService {
 
     }
 
-    public Page<TarefaDTO> buscarTodosPorIdUsuario(Long id, int page, int count) {
-        return repository.buscarTodosPorIdUsuario(id, PageRequest.of(page, count));
+    public Page<TarefaDTO> buscarTodosPorIdUsuario(Long id, Long idCurso, int page, int count) {
+        return repository.buscarTodosPorIdUsuario(id, idCurso, PageRequest.of(page, count));
     }
 
     public void incrementarTarefaPorIdUsuarioECurso(Long idUsuario, Long idCategoria, Long idCurso,
@@ -50,6 +50,10 @@ public class TarefaService {
         tarefa.setTempoGasto(tarefa.getTempoGasto().plusMinutes(30));
 
         repository.save(tarefa);
+    }
+
+    public void remover(TarefaPk id) {
+        repository.deleteById(id);
     }
 
 }
