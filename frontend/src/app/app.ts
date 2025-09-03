@@ -1,13 +1,30 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NgToastComponent, TOAST_POSITIONS } from 'ng-angular-popup';
 import { Loader } from './core/components/loader/loader';
 import { LoaderService } from './core/services/loader/loader';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Loader, NgIf, AsyncPipe, NgToastComponent],
+  imports: [
+    RouterOutlet,
+    Loader,
+    NgIf,
+    AsyncPipe,
+    NgToastComponent,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    RouterModule,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.erik.gestao_aprendizagem.config.handlers.CustomAccessDeniedHandler;
+import com.erik.gestao_aprendizagem.config.handlers.CustomAuthenticationEntryPoint;
 import com.erik.gestao_aprendizagem.filter.JwtAuthenticationFilter;
 import com.erik.gestao_aprendizagem.services.CustomUserDetailsService;
 
@@ -29,7 +31,8 @@ public class SecurityConfig {
     private JwtTokenProvider tokenProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAuthenticationEntryPoint entryPoint,
+            CustomAccessDeniedHandler deniedHandler) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> {
@@ -40,7 +43,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/curso/**").authenticated()
                         .requestMatchers("/api/categoria/**").authenticated()
                         .requestMatchers("/api/tarefa/**").authenticated()
-                        .anyRequest().authenticated());
+                        .anyRequest().authenticated())
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(entryPoint)
+                        .accessDeniedHandler(deniedHandler));
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

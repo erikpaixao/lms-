@@ -1,3 +1,34 @@
 <ng-toast [position]="TOAST_POSITIONS.TOP_RIGHT" [width]="350"></ng-toast>
 <app-loader *ngIf="loading | async"></app-loader>
-<router-outlet />
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" class="sidenav-menu">
+    <mat-nav-list>
+      <a mat-list-item routerLink="" (click)="sidenav.close()">
+        <mat-icon>home</mat-icon>
+        Home
+      </a>
+      <a mat-list-item routerLink="/meus-cursos" (click)="sidenav.close()">
+        <mat-icon>school</mat-icon>
+        Meus Cursos
+      </a>
+
+      <!-- <a mat-list-item routerLink="/minhas-tarefas" (click)="sidenav.close()">
+        <mat-icon>task_alt</mat-icon>
+        Minhas Tarefas
+      </a> -->
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content">
+    <mat-toolbar color="primary" class="main-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Gestão de Aprendizagem</span>
+    </mat-toolbar>
+    <div class="content">
+      <router-outlet />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

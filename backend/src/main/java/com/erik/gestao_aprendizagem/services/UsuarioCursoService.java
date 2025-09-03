@@ -24,7 +24,11 @@ public class UsuarioCursoService {
 
     public void matricular(Long cursoId, Long usuarioId) {
 
-        if (repository.countByIdUsuario(usuarioId) > 3) {
+        if (repository.countByIdUsuarioAndIdCurso(usuarioId, cursoId) > 0) {
+            throw new IllegalArgumentException("Usuário já está matriculado neste curso.");
+        }
+
+        if (repository.countByIdUsuario(usuarioId) > 2) {
             throw new IllegalArgumentException("Usuário já atingiu o limite de 3 cursos.");
         }
 

@@ -6,19 +6,18 @@ import { NgToastService } from 'ng-angular-popup';
 
 import { Router } from '@angular/router';
 import { AlertDialogComponent } from '../../core/components/alert-dialog/alert-dialog';
-import { AuthPermissionDirective } from '../../core/diretiva/permissao-diretiva';
 import { Curso } from '../../core/models/curso.model';
 import { MATERIAL_MODULES } from '../../core/shared/material';
 import { CursoService } from '../../services/curso';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-meus-cursos',
   standalone: true,
-  imports: [CommonModule, AuthPermissionDirective, ...MATERIAL_MODULES],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  imports: [CommonModule, ...MATERIAL_MODULES],
+  templateUrl: './meus-cursos.html',
+  styleUrl: './meus-cursos.css',
 })
-export class Home implements OnInit {
+export class MeusCursos implements OnInit {
   displayedColumns: string[] = ['nome', 'dataInicio', 'dataFim', 'actions'];
   cursos: Curso[] = [];
   totalElements = 0;
@@ -37,7 +36,7 @@ export class Home implements OnInit {
   }
 
   load(page: number = 0, count: number = this.pageSize): void {
-    this.service.getAll(page, count).subscribe({
+    this.service.getTodosMatriculados(page, count).subscribe({
       next: (data) => {
         this.cursos = data.content;
         this.totalElements = data.totalElements;
@@ -84,26 +83,6 @@ export class Home implements OnInit {
               this.openToastError(`Erro ao excluir curso: ${err.error.erro}`);
             },
           });
-        }
-      });
-  }
-
-  matricular(event: Curso) {
-    this.openAlert(`Deseja se matricular no curso "${event.nome}"?`)
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.service.matricular(event.id).subscribe(
-            () => {
-              this.openToastSucess(`Matricula realizada com sucesso!`);
-              this.openEditDialog(event);
-            },
-            (err: any) => {
-              this.openToastError(
-                `Erro ao se matricular no curso: ${err.error.erro}`
-              );
-            }
-          );
         }
       });
   }

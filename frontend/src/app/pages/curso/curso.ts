@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
+import { AuthPermissionDirective } from '../../core/diretiva/permissao-diretiva';
 import { MATERIAL_MODULES } from '../../core/shared/material';
 import { CategotiaService } from '../../services/categoria';
 import { CursoService } from '../../services/curso';
@@ -16,7 +17,12 @@ import { TarefaService } from '../../services/tarefa';
 @Component({
   selector: 'app-curso',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ...MATERIAL_MODULES],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    AuthPermissionDirective,
+    ...MATERIAL_MODULES,
+  ],
   templateUrl: './curso.html',
   styleUrl: './curso.css',
 })

@@ -22,4 +22,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(erros);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(IllegalArgumentException ex) {
+        StringBuilder mensagem = new StringBuilder("");
+        mensagem.append(ex.getMessage());
+
+        Map<String, String> erros = Map.of("erro", mensagem.toString());
+
+        return ResponseEntity.badRequest().body(erros);
+    }
 }

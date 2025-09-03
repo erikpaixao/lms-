@@ -24,6 +24,14 @@ export class CursoService {
     );
   }
 
+  matricular(cursoId: number): Observable<void> {
+    const usuarioId = this.tokenService.getUser();
+    return this.http.post<void>(`${this.apiUrl}/matricula`, {
+      cursoId,
+      usuarioId,
+    });
+  }
+
   getById(id: string): Observable<Curso> {
     return this.http.get<Curso>(`${this.apiUrl}/${id}`);
   }

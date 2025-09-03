@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  Cursos Disponíveis
+  Meus Cursos
   <span class="spacer"></span>
   <button
     mat-raised-button
@@ -13,7 +13,7 @@
 
 <div class="container">
   <mat-card>
-    <mat-card-title>Cursos</mat-card-title>
+    <mat-card-title>Lista de Cursos Matriculados</mat-card-title>
     <mat-card-content>
       <table
         mat-table
@@ -45,26 +45,9 @@
             <button
               mat-icon-button
               color="primary"
-              authPermission="ESTUDANTE"
-              (click)="matricular(element)"
-            >
-              <mat-icon>shopping-add</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              color="primary"
               (click)="openEditDialog(element)"
-              authPermission="ADMIN"
             >
               <mat-icon>edit</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              color="warn"
-              authPermission="ADMIN"
-              (click)="deleteEvent(element)"
-            >
-              <mat-icon>delete</mat-icon>
             </button>
           </td>
         </ng-container>

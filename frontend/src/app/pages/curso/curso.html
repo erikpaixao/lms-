@@ -42,7 +42,12 @@
           Início: {{ curso.dataInicio | date : "dd/MM/yyyy" }} &bull; Fim:
           {{ curso.dataFim | date : "dd/MM/yyyy" }}
         </p>
-        <button mat-raised-button color="primary" (click)="toggleEditMode()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="toggleEditMode()"
+          authPermission="ADMIN"
+        >
           Editar Curso
         </button>
       </div>

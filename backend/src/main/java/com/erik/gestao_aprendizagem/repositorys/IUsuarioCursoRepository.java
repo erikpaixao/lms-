@@ -18,4 +18,7 @@ public interface IUsuarioCursoRepository extends JpaRepository<UsuarioCurso, Usu
     @Query("SELECT count(*) FROM UsuarioCurso uc WHERE uc.id.idUsuario = :id")
     public long countByIdUsuario(Long id);
 
+    @Query("SELECT count(*) FROM UsuarioCurso uc WHERE uc.id.idUsuario = :id AND uc.id.idCurso = :cursoId")
+    public long countByIdUsuarioAndIdCurso(@Param("id") Long usuarioId, @Param("cursoId") Long cursoId);
+
 }
